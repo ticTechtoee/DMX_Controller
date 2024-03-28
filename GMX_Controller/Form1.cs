@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using GMX_Controller;
 
 
 namespace GMX_Controller
@@ -21,8 +13,9 @@ namespace GMX_Controller
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            OpenDMX.start();
 
-            //OpenDMX.start();
+
             if (OpenDMX.IsDeviceConnected())
             {
                 LblDetectDevice.Text = "DMX Device Detected";
@@ -36,13 +29,51 @@ namespace GMX_Controller
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            //// Close all forms except the main form (this form)
+            //foreach (Form form in Application.OpenForms)
+            //{
+            //    if (form != this)
+            //    {
+            //        form.Close();
+            //    }
+            //}
+
+            //// Terminate the application
+            //Application.Exit();
         }
 
         private void BtnExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+           OpenDMX.close();
+           Application.Exit();
 
         }
+
+        private void BtnOn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Set the value to turn the confetti cannon on (DMX channel 1, value 11)
+                OpenDMX.setDmxValue(1, 11);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while turning the confetti cannon on: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnOff_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Set the value to turn the confetti cannon off (DMX channel 1, value 0)
+                OpenDMX.setDmxValue(1, 0);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while turning the confetti cannon off: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }

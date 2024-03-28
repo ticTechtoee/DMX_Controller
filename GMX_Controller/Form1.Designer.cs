@@ -45,6 +45,7 @@
             this.BtnOn.TabIndex = 0;
             this.BtnOn.Text = "On";
             this.BtnOn.UseVisualStyleBackColor = false;
+            this.BtnOn.Click += new System.EventHandler(this.BtnOn_Click);
             // 
             // BtnOff
             // 
@@ -57,6 +58,7 @@
             this.BtnOff.TabIndex = 1;
             this.BtnOff.Text = "Off";
             this.BtnOff.UseVisualStyleBackColor = false;
+            this.BtnOff.Click += new System.EventHandler(this.BtnOff_Click);
             // 
             // BtnExit
             // 

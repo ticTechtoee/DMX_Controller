@@ -10,7 +10,7 @@ namespace GMX_Controller
     public class OpenDMX
 
     {
-
+        private static Thread thread;
         public static byte[] buffer = new byte[513];
         public static uint handle;
         public static bool done = false;
@@ -69,11 +69,38 @@ namespace GMX_Controller
 
         public static void start()
         {
-            handle = 0;
-            status = FT_Open(0, ref handle);
-            Thread thread = new Thread(new ThreadStart(writeData));            
+            // Your existing start method code
+            thread = new Thread(new ThreadStart(writeData));
             thread.Start();
             setDmxValue(0, 0);  //Set DMX Start Code
+        }
+
+        public static void close()
+        {
+            try
+            {
+                // Stop the background thread
+                done = true;
+
+                // Wait for the thread to finish
+                // This ensures that the thread has stopped before continuing
+                if (thread != null)
+                {
+                    thread.Join();
+                }
+
+                // Close the device handle
+                if (handle != 0)
+                {
+                    status = FT_Close(handle);
+                    handle = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occur during cleanup
+                System.Windows.Forms.MessageBox.Show("An error occurred while closing the DMX controller: " + ex.Message, "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
         }
 
         public static void setDmxValue(int channel, byte value)
