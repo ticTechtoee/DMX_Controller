@@ -93,7 +93,6 @@
             this.Big_Mama.Icon = ((System.Drawing.Icon)(resources.GetObject("Big_Mama.Icon")));
             this.Big_Mama.Text = "Big Mama";
             this.Big_Mama.Visible = true;
-        
             this.Big_Mama.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Big_Mama_MouseClick);
             // 
             // Form1
@@ -107,7 +106,9 @@
             this.Controls.Add(this.BtnOff);
             this.Controls.Add(this.BtnOn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Big Mama";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
